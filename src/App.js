@@ -1,10 +1,17 @@
-import React from 'react'
+import React from 'react';
 import './App.css';
+import Signup from './components/Signup';
+import Signin from './components/Signin';
 
 const App = () => {
   return (
-    <div>App</div>
-  )
-}
+    <>
+      <div>
+        <Signup />
+        <Signin />
+      </div>
+    </>
+  );
+};
 
-export default App
+export default App;
