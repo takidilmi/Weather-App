@@ -5,7 +5,7 @@ import Signin from './components/Signin';
 import WeatherComponent from './components/Weather';
 import { doc, getDoc } from 'firebase/firestore';
 import { db, auth } from './utils/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 const App = () => {
   const [userCountry, setUserCountry] = useState('United Kingdom');
@@ -33,6 +33,14 @@ const App = () => {
     // Cleanup subscription on unmount
     return () => unsubscribe();
   }, []);
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      console.log('Sign out successful');
+    } catch (error) {
+      console.error('Error signing out: ', error);
+    }
+  };
 
   return (
     <>
@@ -40,12 +48,14 @@ const App = () => {
         {user ? (
           <div>
             <p>Welcome, {user.displayName}!</p>
+            <button onClick={handleSignOut}>Sign Out</button>            
             <WeatherComponent userCountry={userCountry} />
           </div>
         ) : (
           <div>
             <Signup />
             <Signin />
+            <WeatherComponent userCountry={userCountry} />
           </div>
         )}
       </div>
