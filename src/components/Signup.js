@@ -1,18 +1,27 @@
 import React, { useState } from 'react';
 import { auth } from '../utils/firebase';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore'; // Import the necessary functions
-import { db } from '../utils/firebase'; // Import the Firestore database reference
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '../utils/firebase';
+import Countries from './Countries';
 
 const Signup = () => {
   const [name, setName] = useState('');
   const [familyName, setFamilyName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [country, setCountry] = useState('');
   const [error, setError] = useState(null);
 
   const handleSignup = async (e) => {
     e.preventDefault();
+
+    // Check if a country is selected
+    if (!country) {
+      setError('Please select a country.');
+      return;
+    }
+
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -28,6 +37,7 @@ const Signup = () => {
         familyName: `${familyName}`,
         displayName: `${name} ${familyName}`,
         email: email,
+        country: country,
       });
 
       console.log('Signup successful');
@@ -49,6 +59,7 @@ const Signup = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Name"
+          required
         />
         <input
           type="text"
@@ -56,6 +67,7 @@ const Signup = () => {
           value={familyName}
           onChange={(e) => setFamilyName(e.target.value)}
           placeholder="Family Name"
+          required
         />
         <input
           type="email"
@@ -63,6 +75,7 @@ const Signup = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
+          required
         />
         <input
           type="password"
@@ -70,7 +83,9 @@ const Signup = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
+          required
         />
+        <Countries onCountryChange={setCountry} />
         <button type="submit">Sign Up</button>
       </form>
       {error && <p>{error}</p>}
