@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Countries from './Countries';
 
-const WeatherComponent = ({ userCountry }) => {
+const Weather = ({ userCountry }) => {
   const [forecast, setForecast] = useState([]);
   const [loading, setLoading] = useState(true);
   const [unit, setUnit] = useState('metric'); // 'metric' for Celsius, 'imperial' for Fahrenheit
@@ -79,4 +79,4 @@ const WeatherComponent = ({ userCountry }) => {
   );
 };
 
-export default WeatherComponent;
+export default Weather;

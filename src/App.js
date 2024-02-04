@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
 import Signup from './components/Signup';
 import Signin from './components/Signin';
-import WeatherComponent from './components/Weather';
+import Weather from './components/Weather';
 import { doc, getDoc } from 'firebase/firestore';
 import { db, auth } from './utils/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 const App = () => {
   const [userCountry, setUserCountry] = useState('United Kingdom');
-  const [user, setUser] = useState(null); // Add a new state variable for the user
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -22,20 +22,21 @@ const App = () => {
         } else {
           console.log('No such document!');
         }
-        setUser(user); // Set the user state
+        setUser(user);
       } else {
-        // User is signed out
         console.log('User is not signed in');
-        setUser(null); // Reset the user state
+        setUser(null);
       }
+      setLoading(false);
     });
 
-    // Cleanup subscription on unmount
     return () => unsubscribe();
   }, []);
+
   const handleSignOut = async () => {
     try {
       await signOut(auth);
+      setUserCountry('United Kingdom');
       console.log('Sign out successful');
     } catch (error) {
       console.error('Error signing out: ', error);
@@ -45,18 +46,23 @@ const App = () => {
   return (
     <>
       <div>
-        {user ? (
-          <div>
-            <p>Welcome, {user.displayName}!</p>
-            <button onClick={handleSignOut}>Sign Out</button>            
-            <WeatherComponent userCountry={userCountry} />
-          </div>
+        {loading ? (
+          <p>Loading...</p>
         ) : (
-          <div>
-            <Signup />
-            <Signin />
-            <WeatherComponent userCountry={userCountry} />
-          </div>
+          <>
+            {user ? (
+              <div>
+                <p>Welcome, {user.displayName}!</p>
+                <button onClick={handleSignOut}>Sign Out</button>
+              </div>
+            ) : (
+              <div className='flex justify-center'>
+                <Signup />
+                <Signin />
+              </div>
+            )}
+            <Weather key={userCountry} userCountry={userCountry} />
+          </>
         )}
       </div>
     </>
