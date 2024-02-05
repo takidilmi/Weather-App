@@ -116,7 +116,7 @@ const Weather = ({ userCountry }) => {
             {forecast.map((weather, index) => (
               <div
                 key={index}
-                className="w-40 p-2 m-2 border"
+                className="w-40 p-2 m-2 border boxShadowWeather"
               >
                 <p>
                   {weather.date} - Low:{' '}

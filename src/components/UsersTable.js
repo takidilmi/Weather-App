@@ -22,8 +22,8 @@ const UsersTable = () => {
     <table className="text-center table-auto">
       <thead>
         <tr>
-          <th className="px-4 py-2 border">Display Name</th>
-          <th className="px-4 py-2 border">Status</th>
+          <th className="px-4 py-2">Display Name</th>
+          <th className="px-4 py-2">Status</th>
         </tr>
       </thead>
       <tbody>

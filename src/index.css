@@ -10,6 +10,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-shadow: 0px 0px 0px #000000;
 }
 
 code {
@@ -38,6 +39,13 @@ form {
   gap: 1rem;
   box-shadow: 0px 0px 3px 0.2px rgba(0, 0, 0, 0.5);
 }
+.boxShadowWeather{
+  box-shadow: 0px 0px 3px 0.2px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+}
+.backDropFilter{
+  backdrop-filter: blur(10px);
+}
 .buttonStyle {
   margin: auto;
   padding: 8px;
@@ -47,12 +55,13 @@ form {
   transition: background-color 0.3s linear, color 0.3s linear;
 }
 .buttonStyle:hover {
-  background-color: #ffffff;
+  background-color: #b6b6b6;
   color: black;
   backdrop-filter: blur(0px);
 }
 .signButton{
   color: black;
+  margin-bottom: 10px;
 }
 @keyframes move {
   100% {

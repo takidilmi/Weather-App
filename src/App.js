@@ -77,16 +77,43 @@ const App = () => {
         ) : (
           <div className="flex flex-col items-center">
             {user ? (
-              <div className="flex flex-col items-center gap-3">
+              <div className="relative flex flex-col items-center w-[80%] gap-3">
                 <div>
                   <p>Welcome, {user.displayName}!</p>
                   <ChangeStatus />
                 </div>
                 <UsersTable users={users} />
-                <button onClick={handleSignOut}>Sign Out</button>
+                <button
+                  className="buttonStyle signButton"
+                  onClick={handleSignOut}
+                >
+                  Sign Out
+                </button>
+                <div class="background">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
               </div>
             ) : (
-              <div className="relative flex flex-wrap justify-center w-1/2 gap-3">
+              <div className="relative flex flex-wrap justify-center w-[80%] gap-3">
                 <Signup />
                 <Signin />
                 <div class="background">
@@ -114,7 +141,7 @@ const App = () => {
               </div>
             )}
 
-            <div className="w-1/2">
+            <div className="w-[80%]">
               <Weather
                 key={userCountry}
                 userCountry={userCountry}
