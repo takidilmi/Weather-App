@@ -6,7 +6,7 @@ import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
 import { db, auth, rtdb } from './utils/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import UsersTable from './components/UsersTable';
-import { ref, set, onDisconnect } from 'firebase/database';
+import { ref, set, onDisconnect, update } from 'firebase/database';
 import ChangeStatus from './components/ChangeStatus';
 
 const App = () => {
@@ -29,10 +29,10 @@ const App = () => {
           last_changed: Date.now(),
           displayName: user.displayName,
         });
-        onDisconnect(userStatusDatabaseRef).set({
+        // When the user disconnects, only update the 'state' and 'last_changed' fields
+        onDisconnect(userStatusDatabaseRef).update({
           state: 'offline',
           last_changed: Date.now(),
-          displayName: user.displayName,
         });
 
         if (docSnap.exists()) {
@@ -84,7 +84,9 @@ const App = () => {
             {user ? (
               <div className="relative flex flex-col items-center w-[80%] gap-3">
                 <div>
-                  <p>Welcome, <strong>{user.displayName}</strong>!</p>
+                  <p>
+                    Welcome, <strong>{user.displayName}</strong>!
+                  </p>
                   <ChangeStatus />
                 </div>
                 <UsersTable users={users} />

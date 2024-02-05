@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { auth } from '../utils/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { ref, set } from 'firebase/database';
@@ -8,6 +8,7 @@ const Signin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   const handleSignin = async (e) => {
     e.preventDefault();
@@ -18,7 +19,7 @@ const Signin = () => {
         password
       );
       const user = userCredential.user;
-      console.log('Signin successful');
+      setSuccessMessage('Signin successful');
       const userStatusDatabaseRef = ref(rtdb, '/status/' + user.uid);
       set(userStatusDatabaseRef, {
         state: 'online',
@@ -30,9 +31,16 @@ const Signin = () => {
       setError(error.message);
     }
   };
-
+  useEffect(() => {
+    if (successMessage) {
+      setTimeout(() => {
+        setSuccessMessage(null);
+      }, 3000);
+    }
+  }, [successMessage]);
   return (
     <>
+      {successMessage && <p className="success-message">{successMessage}</p>}
       <div className="flex-1">
         <form onSubmit={handleSignin}>
           <input
@@ -56,7 +64,7 @@ const Signin = () => {
             Sign In
           </button>
         </form>
-        {error && <p>{error}</p>}        
+        {error && <p>{error}</p>}
       </div>
     </>
   );
