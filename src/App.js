@@ -75,7 +75,7 @@ const App = () => {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <div className='flex flex-col items-center'>
+          <div className="flex flex-col items-center">
             {user ? (
               <div className="flex flex-col items-center gap-3">
                 <div>
@@ -86,13 +86,35 @@ const App = () => {
                 <button onClick={handleSignOut}>Sign Out</button>
               </div>
             ) : (
-              <div className="flex flex-wrap justify-center gap-3">
+              <div className="relative flex flex-wrap justify-center w-1/2 gap-3">
                 <Signup />
                 <Signin />
+                <div class="background">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
               </div>
             )}
 
-            <div className='w-1/2'>
+            <div className="w-1/2">
               <Weather
                 key={userCountry}
                 userCountry={userCountry}

@@ -94,7 +94,7 @@ const Signup = () => {
           required
         />
         <Countries onCountryChange={setCountry} />
-        <button type="submit">Sign Up</button>
+        <button className='buttonStyle signButton' type="submit">Sign Up</button>
       </form>
       {error && <p>{error}</p>}
     </div>

@@ -32,26 +32,33 @@ const Signin = () => {
   };
 
   return (
-    <div className="flex-1">
-      <form onSubmit={handleSignin}>
-        <input
-          type="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-        />
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
-        <button type="submit">Sign In</button>
-      </form>
-      {error && <p>{error}</p>}
-    </div>
+    <>
+      <div className="flex-1">
+        <form onSubmit={handleSignin}>
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+          />
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+          />
+          <button
+            className="buttonStyle signButton"
+            type="submit"
+          >
+            Sign In
+          </button>
+        </form>
+        {error && <p>{error}</p>}        
+      </div>
+    </>
   );
 };
 
