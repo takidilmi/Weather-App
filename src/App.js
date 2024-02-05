@@ -7,6 +7,7 @@ import { db, auth, rtdb } from './utils/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import UsersTable from './components/UsersTable';
 import { ref, set } from 'firebase/database';
+import ChangeStatus from './components/ChangeStatus';
 
 const App = () => {
   const [userCountry, setUserCountry] = useState('United Kingdom');
@@ -26,6 +27,7 @@ const App = () => {
         set(userStatusDatabaseRef, {
           state: 'online',
           last_changed: Date.now(),
+          displayName: user.displayName,
         });
 
         if (docSnap.exists()) {
@@ -57,6 +59,7 @@ const App = () => {
       set(userStatusDatabaseRef, {
         state: 'offline',
         last_changed: Date.now(),
+        displayName: user.displayName,
       });
       await signOut(auth);
       setUserCountry('United Kingdom');
@@ -75,7 +78,10 @@ const App = () => {
           <>
             {user ? (
               <div>
-                <p>Welcome, {user.displayName}!</p>
+                <div>
+                  <p>Welcome, {user.displayName}!</p>
+                  <ChangeStatus />
+                </div>
                 <UsersTable users={users} />
                 <button onClick={handleSignOut}>Sign Out</button>
               </div>

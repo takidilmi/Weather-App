@@ -23,7 +23,6 @@ const Signin = () => {
       set(userStatusDatabaseRef, {
         state: 'online',
         last_changed: Date.now(),
-        displayName: user.displayName,
       });
       setEmail('');
       setPassword('');
@@ -31,7 +30,6 @@ const Signin = () => {
       setError(error.message);
     }
   };
-  
 
   return (
     <div className="flex-1">

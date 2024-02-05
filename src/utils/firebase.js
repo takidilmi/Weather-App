@@ -14,7 +14,7 @@ const firebaseConfig = {
   storageBucket: 'alpaago-assignmen.appspot.com',
   messagingSenderId: '305748782144',
   appId: '1:305748782144:web:ff305b5ebc7bb636c9c3a5',
-  databaseURL: 'https://alpaago-assignmen-default-rtdb.europe-west1.firebasedatabase.app/',
+  databaseURL: process.env.REACT_APP_FIREBASE_DB_URL,
 };
 
 // Initialize Firebase
