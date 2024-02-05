@@ -6,7 +6,7 @@ import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
 import { db, auth, rtdb } from './utils/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import UsersTable from './components/UsersTable';
-import { ref, set } from 'firebase/database';
+import { ref, set, onDisconnect } from 'firebase/database';
 import ChangeStatus from './components/ChangeStatus';
 
 const App = () => {
@@ -26,6 +26,11 @@ const App = () => {
         // When the user disconnects, the value will be set to 'offline'
         set(userStatusDatabaseRef, {
           state: 'online',
+          last_changed: Date.now(),
+          displayName: user.displayName,
+        });
+        onDisconnect(userStatusDatabaseRef).set({
+          state: 'offline',
           last_changed: Date.now(),
           displayName: user.displayName,
         });
@@ -79,7 +84,7 @@ const App = () => {
             {user ? (
               <div className="relative flex flex-col items-center w-[80%] gap-3">
                 <div>
-                  <p>Welcome, {user.displayName}!</p>
+                  <p>Welcome, <strong>{user.displayName}</strong>!</p>
                   <ChangeStatus />
                 </div>
                 <UsersTable users={users} />

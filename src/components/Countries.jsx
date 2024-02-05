@@ -209,8 +209,10 @@ const Countries = ({ onCountryChange }) => {
   };
 
   return (
-    <div className=''>
+    <div>
       <ReactFlagsSelect
+        placeholder="Select a Country"
+        className="menu-flags"
         selected={selected}
         onSelect={onSelect}
       />

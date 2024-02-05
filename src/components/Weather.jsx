@@ -6,7 +6,7 @@ import ThunderstormPic from '../assets/Thunderstorm.jpg';
 import DrizzlePic from '../assets/Drizzle.jpg';
 import RainPic from '../assets/Rain.jpg';
 import SnowPic from '../assets/Snow.jpg';
-import ClearPic from '../assets/Clear.jpg'
+import ClearPic from '../assets/Clear.jpg';
 
 const Weather = ({ userCountry }) => {
   const [forecast, setForecast] = useState([]);
@@ -64,7 +64,6 @@ const Weather = ({ userCountry }) => {
         const response = await axios.get(
           `https://api.openweathermap.org/data/2.5/weather?q=${country}&units=${unit}&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
         );
-        console.log(response);
         setCurrentWeather(response.data.weather[0].main);
         setCurrentTemperature(response.data.main.temp);
       } catch (error) {
@@ -89,7 +88,7 @@ const Weather = ({ userCountry }) => {
       case 'Clouds':
         return `url(${CloudsPic}) center center/cover no-repeat`;
       default:
-        return 'none';
+        return `url(${CloudsPic}) center center/cover no-repeat`;
     }
   };
 
