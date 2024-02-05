@@ -71,13 +71,13 @@ const App = () => {
 
   return (
     <>
-      <div>
+      <div className="flex flex-col items-center gap-2">
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <>
+          <div className='flex flex-col items-center'>
             {user ? (
-              <div>
+              <div className="flex flex-col items-center gap-3">
                 <div>
                   <p>Welcome, {user.displayName}!</p>
                   <ChangeStatus />
@@ -92,11 +92,13 @@ const App = () => {
               </div>
             )}
 
-            <Weather
-              key={userCountry}
-              userCountry={userCountry}
-            />
-          </>
+            <div className='w-1/2'>
+              <Weather
+                key={userCountry}
+                userCountry={userCountry}
+              />
+            </div>
+          </div>
         )}
       </div>
     </>

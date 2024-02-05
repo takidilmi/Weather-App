@@ -209,10 +209,12 @@ const Countries = ({ onCountryChange }) => {
   };
 
   return (
-    <ReactFlagsSelect
-      selected={selected}
-      onSelect={onSelect}
-    />
+    <div className=''>
+      <ReactFlagsSelect
+        selected={selected}
+        onSelect={onSelect}
+      />
+    </div>
   );
 };
 
