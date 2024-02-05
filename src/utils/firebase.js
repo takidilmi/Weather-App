@@ -2,6 +2,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import { getDatabase } from 'firebase/database';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -13,6 +14,7 @@ const firebaseConfig = {
   storageBucket: 'alpaago-assignmen.appspot.com',
   messagingSenderId: '305748782144',
   appId: '1:305748782144:web:ff305b5ebc7bb636c9c3a5',
+  databaseURL: 'https://alpaago-assignmen-default-rtdb.europe-west1.firebasedatabase.app/',
 };
 
 // Initialize Firebase
@@ -23,3 +25,5 @@ export const auth = getAuth(app);
 
 // Initialize Cloud Firestore and get a reference to the service
 export const db = getFirestore(app);
+// Initialize Realtime Database and get a reference to the service
+export const rtdb = getDatabase(app);

@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { auth } from '../utils/firebase';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
-import { db } from '../utils/firebase';
+import { db, rtdb } from '../utils/firebase';
 import Countries from './Countries';
+import { ref, set } from 'firebase/database';
 
 const Signup = () => {
   const [name, setName] = useState('');
@@ -39,6 +40,13 @@ const Signup = () => {
         email: email,
         country: country,
       });
+      // After the user is created and their profile is updated
+      const userStatusDatabaseRef = ref(rtdb, '/status/' + user.uid);
+      set(userStatusDatabaseRef, {
+        state: 'online',
+        last_changed: Date.now(),
+        displayName: `${name} ${familyName}`,
+      });
 
       console.log('Signup successful');
       setName('');
@@ -51,7 +59,7 @@ const Signup = () => {
   };
 
   return (
-    <div>
+    <div className="flex-1">
       <form onSubmit={handleSignup}>
         <input
           type="text"

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { auth } from '../utils/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { ref, set } from 'firebase/database';
+import { rtdb } from '../utils/firebase';
 
 const Signin = () => {
   const [email, setEmail] = useState('');
@@ -15,17 +17,24 @@ const Signin = () => {
         email,
         password
       );
-      console.log(userCredential)
+      const user = userCredential.user;
       console.log('Signin successful');
+      const userStatusDatabaseRef = ref(rtdb, '/status/' + user.uid);
+      set(userStatusDatabaseRef, {
+        state: 'online',
+        last_changed: Date.now(),
+        displayName: user.displayName,
+      });
       setEmail('');
       setPassword('');
     } catch (error) {
       setError(error.message);
     }
   };
+  
 
   return (
-    <div>
+    <div className="flex-1">
       <form onSubmit={handleSignin}>
         <input
           type="email"
