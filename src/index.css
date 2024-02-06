@@ -27,7 +27,7 @@ input {
   border-radius: 4px;
   font-size: 16px;
   box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.5);
-
+  text-align: center;
 }
 form {
   display: flex;
@@ -35,7 +35,7 @@ form {
   height: 100%;
   padding: 0.5rem;
   border-radius: 8px;
-  flex-direction: column;  
+  flex-direction: column;
   gap: 1rem;
   box-shadow: 0px 0px 3px 0.2px rgba(0, 0, 0, 0.5);
 }
@@ -47,21 +47,21 @@ form {
   padding: 5px;
   background-color: white;
 }
-.boxShadowWeather{
+.boxShadowWeather {
   box-shadow: 0px 0px 3px 0.2px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
   padding: 5px;
 }
-.backDropFilter{
+.backDropFilter {
   backdrop-filter: blur(10px);
 }
-.menu-flags span{
+.menu-flags span {
   color: #000000;
 }
 .buttonStyle {
   margin: auto;
   padding: 8px;
-  backdrop-filter: blur(10px);  
+  backdrop-filter: blur(10px);
   color: white;
   box-shadow: 0px 0px 3px 0.2px rgba(0, 0, 0, 0.5);
   transition: background-color 0.3s linear, color 0.3s linear;
@@ -71,24 +71,29 @@ form {
   color: black;
   backdrop-filter: blur(0px);
 }
-.signButton{
+.signButton {
   color: black;
   margin-bottom: 10px;
 }
 @keyframes move {
   100% {
-      transform: translate3d(0, 0, 1px) rotate(360deg);
+    transform: translate3d(0, 0, 1px) rotate(360deg);
   }
 }
 
-.background {  
+.background {
   position: absolute;
   width: 100%;
   height: 100%;
   z-index: -1;
   top: 0;
   left: 0;
-  background: linear-gradient(90deg, rgba(58,5,79,1) 3%, rgba(146,146,231,1) 46%, rgba(68,0,255,1) 91%);
+  background: linear-gradient(
+    90deg,
+    rgba(58, 5, 79, 1) 3%,
+    rgba(146, 146, 231, 1) 46%,
+    rgba(68, 0, 255, 1) 91%
+  );
   overflow: hidden;
   border-radius: 10px 10px 0px 0px;
 }
@@ -105,9 +110,8 @@ form {
   animation-iteration-count: infinite;
 }
 
-
 .background span:nth-child(0) {
-  color: #583C87;
+  color: #583c87;
   top: 32%;
   left: 78%;
   animation-duration: 21s;
@@ -116,7 +120,7 @@ form {
   box-shadow: 40vmin 0 5.451613200560386vmin currentColor;
 }
 .background span:nth-child(1) {
-  color: #583C87;
+  color: #583c87;
   top: 28%;
   left: 38%;
   animation-duration: 25s;
@@ -125,7 +129,7 @@ form {
   box-shadow: 40vmin 0 5.223402297602172vmin currentColor;
 }
 .background span:nth-child(2) {
-  color: #583C87;
+  color: #583c87;
   top: 19%;
   left: 11%;
   animation-duration: 42s;
@@ -134,7 +138,7 @@ form {
   box-shadow: -40vmin 0 5.947519222636473vmin currentColor;
 }
 .background span:nth-child(3) {
-  color: #E45A84;
+  color: #e45a84;
   top: 53%;
   left: 72%;
   animation-duration: 13s;
@@ -143,7 +147,7 @@ form {
   box-shadow: -40vmin 0 5.834198262439146vmin currentColor;
 }
 .background span:nth-child(4) {
-  color: #FFACAC;
+  color: #ffacac;
   top: 10%;
   left: 48%;
   animation-duration: 35s;
@@ -152,7 +156,7 @@ form {
   box-shadow: -40vmin 0 5.689944762689343vmin currentColor;
 }
 .background span:nth-child(5) {
-  color: #E45A84;
+  color: #e45a84;
   top: 12%;
   left: 11%;
   animation-duration: 28s;
@@ -161,7 +165,7 @@ form {
   box-shadow: 40vmin 0 5.821627187986326vmin currentColor;
 }
 .background span:nth-child(6) {
-  color: #FFACAC;
+  color: #ffacac;
   top: 92%;
   left: 78%;
   animation-duration: 13s;
@@ -170,7 +174,7 @@ form {
   box-shadow: -40vmin 0 5.546023391013639vmin currentColor;
 }
 .background span:nth-child(7) {
-  color: #583C87;
+  color: #583c87;
   top: 15%;
   left: 88%;
   animation-duration: 27s;
@@ -179,7 +183,7 @@ form {
   box-shadow: 40vmin 0 5.8446062461525985vmin currentColor;
 }
 .background span:nth-child(8) {
-  color: #583C87;
+  color: #583c87;
   top: 68%;
   left: 18%;
   animation-duration: 33s;
@@ -188,7 +192,7 @@ form {
   box-shadow: 40vmin 0 5.244865258328176vmin currentColor;
 }
 .background span:nth-child(9) {
-  color: #E45A84;
+  color: #e45a84;
   top: 97%;
   left: 52%;
   animation-duration: 38s;
@@ -197,7 +201,7 @@ form {
   box-shadow: -40vmin 0 5.900127502503535vmin currentColor;
 }
 .background span:nth-child(10) {
-  color: #583C87;
+  color: #583c87;
   top: 47%;
   left: 95%;
   animation-duration: 11s;
@@ -206,7 +210,7 @@ form {
   box-shadow: -40vmin 0 5.150269787984875vmin currentColor;
 }
 .background span:nth-child(11) {
-  color: #FFACAC;
+  color: #ffacac;
   top: 30%;
   left: 55%;
   animation-duration: 18s;
@@ -215,7 +219,7 @@ form {
   box-shadow: 40vmin 0 5.821971480200989vmin currentColor;
 }
 .background span:nth-child(12) {
-  color: #E45A84;
+  color: #e45a84;
   top: 96%;
   left: 10%;
   animation-duration: 31s;
@@ -224,7 +228,7 @@ form {
   box-shadow: -40vmin 0 5.126963111079791vmin currentColor;
 }
 .background span:nth-child(13) {
-  color: #FFACAC;
+  color: #ffacac;
   top: 48%;
   left: 89%;
   animation-duration: 13s;
@@ -233,7 +237,7 @@ form {
   box-shadow: 40vmin 0 5.919837376595167vmin currentColor;
 }
 .background span:nth-child(14) {
-  color: #583C87;
+  color: #583c87;
   top: 10%;
   left: 49%;
   animation-duration: 30s;
@@ -242,7 +246,7 @@ form {
   box-shadow: -40vmin 0 5.822986894258474vmin currentColor;
 }
 .background span:nth-child(15) {
-  color: #E45A84;
+  color: #e45a84;
   top: 95%;
   left: 91%;
   animation-duration: 26s;
@@ -251,7 +255,7 @@ form {
   box-shadow: -40vmin 0 5.226266828102535vmin currentColor;
 }
 .background span:nth-child(16) {
-  color: #583C87;
+  color: #583c87;
   top: 62%;
   left: 22%;
   animation-duration: 41s;
@@ -260,7 +264,7 @@ form {
   box-shadow: 40vmin 0 5.2257865042858676vmin currentColor;
 }
 .background span:nth-child(17) {
-  color: #583C87;
+  color: #583c87;
   top: 91%;
   left: 90%;
   animation-duration: 7s;
@@ -269,7 +273,7 @@ form {
   box-shadow: -40vmin 0 5.826770330646025vmin currentColor;
 }
 .background span:nth-child(18) {
-  color: #583C87;
+  color: #583c87;
   top: 95%;
   left: 90%;
   animation-duration: 33s;
@@ -278,7 +282,7 @@ form {
   box-shadow: 40vmin 0 5.57961429507338vmin currentColor;
 }
 .background span:nth-child(19) {
-  color: #FFACAC;
+  color: #ffacac;
   top: 98%;
   left: 3%;
   animation-duration: 33s;

@@ -81,6 +81,7 @@ const App = () => {
 
   return (
     <>
+      <h1 className='text-3xl text-center'>Weather App and Firebase Auth</h1>
       <div className="flex flex-col items-center gap-2">
         {loading ? (
           <p>Loading...</p>
