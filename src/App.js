@@ -20,7 +20,7 @@ const App = () => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const docRef = doc(db, 'users', user.uid);
-        const docSnap = await getDoc(docRef);        
+        const docSnap = await getDoc(docRef);
         const userStatusDatabaseRef = ref(rtdb, '/status/' + user.uid);
         // We'll create a key on user's profile in the Realtime database
         // The value will be 'online' if the user is online
@@ -38,8 +38,7 @@ const App = () => {
 
         if (docSnap.exists()) {
           setUserCountry(docSnap.data().country);
-          setFriends(docSnap.data().friends || []);          
-          console.log(docSnap.data().friends)
+          setFriends(docSnap.data().friends || []);
         } else {
           console.log('No such document!');
         }
@@ -49,9 +48,12 @@ const App = () => {
         setUser(null);
       }
       const fetchUsers = async () => {
-        const usersColelction = collection(db, 'users');
-        const userSnapshot = await getDocs(usersColelction);
-        const userList = userSnapshot.docs.map((doc) => doc.data());
+        const usersCollection = collection(db, 'users');
+        const userSnapshot = await getDocs(usersCollection);
+        const userList = userSnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          uid: doc.id,
+        }));
         setUsers(userList);
       };
       fetchUsers();
@@ -92,7 +94,10 @@ const App = () => {
                   </p>
                   <ChangeStatus />
                 </div>
-                <UsersTable users={users} friends={friends} />
+                <UsersTable
+                  users={users}
+                  friends={friends}
+                />
                 <button
                   className="buttonStyle signButton"
                   onClick={handleSignOut}

@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { onValue, ref } from 'firebase/database';
 import { rtdb, db, auth } from '../utils/firebase';
-import {
-  arrayRemove,
-  arrayUnion,
-  doc,
-  updateDoc,  
-} from 'firebase/firestore';
+import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore';
 
-const UsersTable = ({ friends }) => {
+const UsersTable = ({ users, friends }) => {
   const [usersStatus, setUsersStatus] = useState({});
   const [userFriends, setUserFriends] = useState(friends);
 
@@ -51,7 +46,15 @@ const UsersTable = ({ friends }) => {
       console.error('Error deleting friend: ', error);
     }
   };
-
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based in JavaScript
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${day}-${month}-${year} ${hours}:${minutes}`;
+  };
   return (
     <div className="max-h-[500px] p-2 overflow-y-auto">
       <table className="text-center ">
@@ -59,6 +62,7 @@ const UsersTable = ({ friends }) => {
           <tr>
             <th className="px-4 py-2">Display Name</th>
             <th className="px-4 py-2">Status</th>
+            <th className="px-4 py-2">Join Date</th> {/* New column */}
             <th className="px-4 py-2">Actions</th>
           </tr>
         </thead>
@@ -88,6 +92,11 @@ const UsersTable = ({ friends }) => {
                   </td>
                   <td className="border">
                     <strong>{status.state}</strong>
+                  </td>
+                  <td className="border">
+                    {formatDate(
+                      users.find((user) => user.uid === uid)?.joinDate
+                    )}
                   </td>
                   <td className="border">
                     {uid !== auth.currentUser.uid &&

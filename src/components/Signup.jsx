@@ -40,6 +40,7 @@ const Signup = () => {
         displayName: `${name} ${familyName}`,
         email: email,
         country: country,
+        joinDate : new Date().toISOString(),
       });
       setSuccessMessage('Signup successful');
       // After the user is created and their profile is updated
