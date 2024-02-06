@@ -14,12 +14,13 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
+  const [friends, setFriends] = useState([]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const docRef = doc(db, 'users', user.uid);
-        const docSnap = await getDoc(docRef);
+        const docSnap = await getDoc(docRef);        
         const userStatusDatabaseRef = ref(rtdb, '/status/' + user.uid);
         // We'll create a key on user's profile in the Realtime database
         // The value will be 'online' if the user is online
@@ -37,6 +38,8 @@ const App = () => {
 
         if (docSnap.exists()) {
           setUserCountry(docSnap.data().country);
+          setFriends(docSnap.data().friends || []);          
+          console.log(docSnap.data().friends)
         } else {
           console.log('No such document!');
         }
@@ -89,7 +92,7 @@ const App = () => {
                   </p>
                   <ChangeStatus />
                 </div>
-                <UsersTable users={users} />
+                <UsersTable users={users} friends={friends} />
                 <button
                   className="buttonStyle signButton"
                   onClick={handleSignOut}

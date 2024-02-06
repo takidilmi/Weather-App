@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { onValue, ref } from 'firebase/database';
-import { rtdb } from '../utils/firebase';
+import { rtdb, db, auth } from '../utils/firebase';
+import {
+  arrayRemove,
+  arrayUnion,
+  doc,
+  updateDoc,  
+} from 'firebase/firestore';
 
-const UsersTable = () => {
+const UsersTable = ({ friends }) => {
   const [usersStatus, setUsersStatus] = useState({});
+  const [userFriends, setUserFriends] = useState(friends);
 
   useEffect(() => {
     const statusRef = ref(rtdb, 'status'); // path to the status
@@ -17,14 +24,42 @@ const UsersTable = () => {
     // Clean up the listener when the component unmounts
     return () => unsubscribe();
   }, []);
+  const addUser = async (friendUid) => {
+    try {
+      const userDocRef = doc(db, 'users', auth.currentUser.uid);
+      await updateDoc(userDocRef, {
+        friends: arrayUnion(friendUid),
+      });
+      setUserFriends((prevFriends) => [...prevFriends, friendUid]);
+      console.log('Friend added successfully');
+    } catch (error) {
+      console.error('Error adding friend: ', error);
+    }
+  };
+
+  const deleteUser = async (friendUid) => {
+    try {
+      const userDocRef = doc(db, 'users', auth.currentUser.uid);
+      await updateDoc(userDocRef, {
+        friends: arrayRemove(friendUid),
+      });
+      setUserFriends((prevFriends) =>
+        prevFriends.filter((uid) => uid !== friendUid)
+      );
+      console.log('Friend deleted successfully');
+    } catch (error) {
+      console.error('Error deleting friend: ', error);
+    }
+  };
 
   return (
-    <div className='max-h-[500px] p-2 overflow-y-auto'>
+    <div className="max-h-[500px] p-2 overflow-y-auto">
       <table className="text-center ">
         <thead>
           <tr>
             <th className="px-4 py-2">Display Name</th>
             <th className="px-4 py-2">Status</th>
+            <th className="px-4 py-2">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -53,6 +88,16 @@ const UsersTable = () => {
                   </td>
                   <td className="border">
                     <strong>{status.state}</strong>
+                  </td>
+                  <td className="border">
+                    {uid !== auth.currentUser.uid &&
+                      ((userFriends || []).includes(uid) ? (
+                        <button onClick={() => deleteUser(uid)}>
+                          Delete Friend
+                        </button>
+                      ) : (
+                        <button onClick={() => addUser(uid)}>Add Friend</button>
+                      ))}
                   </td>
                 </tr>
               )
