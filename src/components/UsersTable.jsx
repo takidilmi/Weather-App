@@ -76,29 +76,29 @@ const UsersTable = ({ users, friends }) => {
                     status.state === 'online' ? 'bg-gray-300' : 'bg-gray-100'
                   }`}
                 >
-                  <td className="px-4 py-2 border">
+                  <td className="px-4 py-2 borderHere">
                     <div>
                       <p className="relative">
                         {status.displayName}{' '}
                         <span
                           className={`${
                             status.state === 'online'
-                              ? 'bg-green-500 bg-opacity-60 absolute right-[-1px] p-1 rounded-full'
+                              ? 'activeStatus'
                               : 'bg-gray-100'
                           }`}
                         ></span>
                       </p>
                     </div>
                   </td>
-                  <td className="border">
+                  <td className="borderHere">
                     <strong>{status.state}</strong>
                   </td>
-                  <td className="border">
+                  <td className="borderHere">
                     {formatDate(
                       users.find((user) => user.uid === uid)?.joinDate
                     )}
                   </td>
-                  <td className="border">
+                  <td className="borderHere">
                     {uid !== auth.currentUser.uid &&
                       ((userFriends || []).includes(uid) ? (
                         <button onClick={() => deleteUser(uid)}>
