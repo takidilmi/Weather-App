@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { auth } from '../utils/firebase';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
@@ -13,6 +13,7 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [country, setCountry] = useState('');
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -40,6 +41,7 @@ const Signup = () => {
         email: email,
         country: country,
       });
+      setSuccessMessage('Signup successful');
       // After the user is created and their profile is updated
       const userStatusDatabaseRef = ref(rtdb, '/status/' + user.uid);
       set(userStatusDatabaseRef, {
@@ -48,7 +50,6 @@ const Signup = () => {
         displayName: `${name} ${familyName}`,
       });
 
-      console.log('Signup successful');
       setName('');
       setFamilyName('');
       setEmail('');
@@ -57,47 +58,62 @@ const Signup = () => {
       setError(error.message);
     }
   };
+  useEffect(() => {
+    if (successMessage) {
+      setTimeout(() => {
+        setSuccessMessage(null);
+      }, 3000);
+    }
+  }, [successMessage]);
 
   return (
-    <div className="flex-1">
-      <form onSubmit={handleSignup}>
-        <input
-          type="text"
-          name="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Name"
-          required
-        />
-        <input
-          type="text"
-          name="familyName"
-          value={familyName}
-          onChange={(e) => setFamilyName(e.target.value)}
-          placeholder="Family Name"
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          required
-        />
-        <Countries onCountryChange={setCountry} />
-        <button className='buttonStyle signButton' type="submit">Sign Up</button>
-      </form>
-      {error && <p>{error}</p>}
-    </div>
+    <>
+      {successMessage && <p className="success-message">{successMessage}</p>}
+      <div className="flex-1">
+        <form onSubmit={handleSignup}>
+          <input
+            type="text"
+            name="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Name"
+            required
+          />
+          <input
+            type="text"
+            name="familyName"
+            value={familyName}
+            onChange={(e) => setFamilyName(e.target.value)}
+            placeholder="Family Name"
+            required
+          />
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            required
+          />
+          <Countries onCountryChange={setCountry} />
+          <button
+            className="buttonStyle signButton"
+            type="submit"
+          >
+            Sign Up
+          </button>
+        </form>
+        {error && <p>{error}</p>}
+      </div>
+    </>
   );
 };
 
